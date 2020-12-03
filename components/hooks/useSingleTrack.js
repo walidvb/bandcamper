@@ -5,12 +5,15 @@ const routes = {
   bandcamp: '/api/bandcamper'
 }
 
+// const updateIFromState = (cb) => state.map((t, i) => i === idx ? cb(t) : t)
 
 const reducer = (state, { type, payload }) => {
   const { idx, ...track } = payload
-  const updateIFromState = (cb) => state.map((t, i) => i === idx ? cb(t) : t)
-  console.log(track)
   switch(type){
+    case 'FETCH_REMAINING':
+      return state.map((t) => ({ ...t, fetchRequested: !t.url }))
+    case 'BANDCAMP_NOT_FOUND':
+      return state.map((t, i) => i === idx ? { ...t, fetchRequested: false, } : t)
     case 'BANDCAMP_FOUND':
       return state.map((t, i) => i === idx ? track : t)
     default:

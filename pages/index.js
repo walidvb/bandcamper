@@ -1,6 +1,7 @@
 import React from 'react'
 import useTracks from '../components/hooks/useSingleTrack';
 import TrackRow from '../components/TrackRow';
+import TracksTable from '../components/TracksTable';
 
 
 const initalTracks = [
@@ -30,18 +31,14 @@ export default () => {
   const { tracks, dispatch } = useTracks(initalTracks)
 
   return <div className="mx-auto container py-8">
-    <table className="w-full text-blue-800">
-      <thead>
-        <tr>
-          <td className="pb-4 font-bold"></td>
-          <td className="pb-4 font-bold">Artist</td>
-          <td className="pb-4 font-bold">Track</td>
-          <td className="pb-4 font-bold">Link</td>
-        </tr>
-      </thead>
-      <tbody>
-        {tracks.map((t, i) => <TrackRow idx={i} key={t.name} dispatch={dispatch} {...t} />)}
-      </tbody>
-    </table>
+    <TracksTable tracks={tracks} dispatch={dispatch} />
+    <div>
+      <div 
+        className="py-2 cursor-pointer inline-block px-4 text-uppercase bg-blue-700 text-white font-bold" 
+        onClick={() => dispatch({ type: 'FETCH_REMAINING', payload: {} })}
+      >
+        Get Bandcamp Links
+      </div>
+    </div>
   </div>
 }

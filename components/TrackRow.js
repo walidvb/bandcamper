@@ -1,9 +1,15 @@
 import Axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const TrackRow = ({ artist, name, url, dispatch, idx }) => {
+const TrackRow = ({ artist, name, url, dispatch, idx, fetchRequested }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+
+  useEffect(() => {
+    if(fetchRequested){
+      query()
+    }
+  }, [fetchRequested])
 
   const query = async ()  => {
     if(loading) return
@@ -16,6 +22,7 @@ const TrackRow = ({ artist, name, url, dispatch, idx }) => {
       })
       dispatch({ type: 'BANDCAMP_FOUND', payload: { idx, ...data }})
     }catch(err){
+      dispatch({ type: 'BANDCAMP_NOT_FOUND', payload: { idx } })
       setError(true)
     }
     setLoading(false)
