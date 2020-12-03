@@ -10,11 +10,15 @@ const routes = {
 const reducer = (state, { type, payload }) => {
   const { idx, ...track } = payload
   switch(type){
+    case 'CLEAR_LIST': 
+      return []
     case 'FETCH_REMAINING':
       return state.map((t) => ({ ...t, fetchRequested: !t.url }))
     case 'BANDCAMP_NOT_FOUND':
       return state.map((t, i) => i === idx ? { ...t, fetchRequested: false, } : t)
-    case 'BANDCAMP_FOUND':
+    case 'ADD_TRACK':
+      return [...state, {...payload.track, idx: state.length }]
+    case 'UPDATE_TRACK':
       return state.map((t, i) => i === idx ? track : t)
     default:
       return state

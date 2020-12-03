@@ -1,6 +1,5 @@
 import React from 'react'
 import useTracks from '../components/hooks/useSingleTrack';
-import TrackRow from '../components/TrackRow';
 import TracksTable from '../components/TracksTable';
 import EnhancedTrackList from '../components/hooks/EnhancedTrackList';
 
@@ -32,17 +31,25 @@ export const BUTTON_CLASSES = "py-2 rounded-sm cursor-pointer inline-block px-4 
 
 export default () => {
   const { tracks, dispatch } = useTracks(initalTracks)
-
+  console.log(tracks)
   return <div className="mx-auto container py-8">
+    <h1 className="uppercase text-4xl text-center font-bold ">
+      WELCOME TO BANDCAMPER
+    </h1>
     <TracksTable tracks={tracks} dispatch={dispatch} />
-    <div className="flex">
+    <div className="flex justify-end">
       <div 
         className={`${BUTTON_CLASSES} mr-6`} 
         onClick={() => dispatch({ type: 'FETCH_REMAINING', payload: {} })}
       >
         Get Bandcamp Links
       </div>
-      <EnhancedTrackList tracks={tracks} />
+      <div className="mr-6">
+        <EnhancedTrackList tracks={tracks} />
+      </div>
+      <div className={BUTTON_CLASSES} onClick={() => dispatch({ type: 'CLEAR_LIST', payload: {} })}>
+        Clear
+      </div>
     </div>
   </div>
 }

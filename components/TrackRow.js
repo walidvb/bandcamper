@@ -1,7 +1,8 @@
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const TrackRow = ({ artist, name, url, dispatch, idx, fetchRequested }) => {
+const TrackRow = ({ track, dispatch, idx }) => {
+  const { artist, name, url, imageUrl, fetchRequested } = track
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
@@ -20,14 +21,22 @@ const TrackRow = ({ artist, name, url, dispatch, idx, fetchRequested }) => {
         artist,
         name
       })
-      dispatch({ type: 'BANDCAMP_FOUND', payload: { idx, ...data }})
+      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...data }})
     }catch(err){
       dispatch({ type: 'BANDCAMP_NOT_FOUND', payload: { idx } })
       setError(true)
     }
     setLoading(false)
-    
   }
+
+  const onChange = ({ target: { value, name } }) => dispatch({ 
+    type: 'UPDATE_TRACK', 
+    payload: { 
+      idx, 
+      ...track, 
+      [name]: value 
+    }
+  })
 
   const cellClasses = "pb-2 pr-2"
   return (
@@ -36,13 +45,18 @@ const TrackRow = ({ artist, name, url, dispatch, idx, fetchRequested }) => {
         <div>{idx+1}</div>
       </td>
       <td className={cellClasses}>
-        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={artist} />
+        <input onChange={onChange} name="artist" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={artist} />
       </td>
       <td className={cellClasses}>
-        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={name} />
+        <input onChange={onChange} name="name" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={name} />
       </td>
       <td className={cellClasses}>
-        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={url} />
+        <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={url} />
+      </td>
+      <td className="py-0">
+        {imageUrl && <a href={url} target="_blank">
+          <img src={imageUrl} className="h-6 w-auto"/>
+        </a> }
       </td>
       <td className={cellClasses}>
         <div className={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
