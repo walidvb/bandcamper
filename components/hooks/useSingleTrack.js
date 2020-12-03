@@ -10,6 +10,8 @@ const routes = {
 const reducer = (state, { type, payload }) => {
   const { idx, ...track } = payload
   switch(type){
+    case 'PARSED_TRACKLIST':
+      return payload
     case 'CLEAR_LIST': 
       return []
     case 'FETCH_REMAINING':

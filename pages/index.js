@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useTracks from '../components/hooks/useSingleTrack';
 import TracksTable from '../components/TracksTable';
 import EnhancedTrackList from '../components/hooks/EnhancedTrackList';
+import Paster from '../components/Paster';
 
 
 const initalTracks = [
@@ -25,12 +26,16 @@ export const BUTTON_CLASSES = "py-2 rounded-sm cursor-pointer inline-block px-4 
 
 export default () => {
   const { tracks, dispatch } = useTracks(initalTracks)
-  console.log(tracks)
+  const [step, setStep] = useState('paste')
+
+  if(step === 'paste'){
+    return <Paster dispatch={dispatch} onNext={() => setStep('preview')} />
+  }
   return <div className="mx-auto container py-8">
     <h1 className="uppercase text-4xl text-center font-bold ">
       WELCOME TO BANDCAMPER
     </h1>
-    <TracksTable tracks={tracks} dispatch={dispatch} />
+    <TracksTable tracks={tracks} dispatch={dispatch}/>
     <div className="flex justify-end">
       <div 
         className={`${BUTTON_CLASSES} mr-6`} 

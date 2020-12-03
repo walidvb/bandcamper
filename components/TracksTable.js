@@ -46,6 +46,8 @@ export default ({ tracks, dispatch}) => {
           <td className="pb-2 font-bold"></td>
           <td className="pb-2 font-bold">Artist</td>
           <td className="pb-2 font-bold">Track</td>
+          <td className="pb-2 font-bold">Version</td>
+          <td className="pb-2 font-bold">Label</td>
           <td className="pb-2 font-bold">Link</td>
         </tr>
       </thead>

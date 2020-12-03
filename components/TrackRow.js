@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import BandcampUrlInput from './BandcampURLInput';
 
 const TrackRow = ({ track, dispatch, idx }) => {
-  const { artist, name, url, imageUrl, fetchRequested } = track
+  const { artist, name, url, version, label, imageUrl, fetchRequested } = track
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [candidates, setCandidates] = useState([])
@@ -55,6 +55,14 @@ const TrackRow = ({ track, dispatch, idx }) => {
       </td>
       <td className={cellClasses}>
         <input onChange={onChange} name="name" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={name} />
+        {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
+      </td>
+      <td className={cellClasses}>
+        <input onChange={onChange} name="version" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={version} />
+        {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
+      </td>
+      <td className={cellClasses}>
+        <input onChange={onChange} name="label" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={label} />
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
