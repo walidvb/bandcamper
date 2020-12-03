@@ -1,11 +1,12 @@
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
+import BandcampUrlInput from './BandcampURLInput';
 
 const TrackRow = ({ track, dispatch, idx }) => {
   const { artist, name, url, imageUrl, fetchRequested } = track
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [fetchedTrack, setFetchedTrack] = useState({})
+  const [candidates, setCandidates] = useState([])
 
   useEffect(() => {
     if(fetchRequested){
@@ -18,13 +19,15 @@ const TrackRow = ({ track, dispatch, idx }) => {
     setLoading(true)
     setError(false)
     try{
-      const { data } = await Axios.post('/api/bandcamper', {
+      const { data: newCandidates } = await Axios.post('/api/bandcamper', {
         artist,
         name
       })
-      setFetchedTrack(data)
-      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...{ ...track, url: data.url, imageUrl: data.imageUrl } }})
+      setCandidates(newCandidates)
+      const bestMatch = newCandidates[0]
+      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...{ ...track, url: bestMatch.url, imageUrl: bestMatch.img } }})
     }catch(err){
+      console.log(err)
       dispatch({ type: 'BANDCAMP_NOT_FOUND', payload: { idx } })
       setError(true)
     }
@@ -55,7 +58,8 @@ const TrackRow = ({ track, dispatch, idx }) => {
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} />
+        <BandcampUrlInput onChange={onChange} options={candidates} selected={url} />
+        {/* <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} /> */}
       </td>
       <td className="py-0">
 
