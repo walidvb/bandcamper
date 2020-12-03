@@ -21,7 +21,7 @@ const TrackRow = ({ track, dispatch, idx }) => {
         artist,
         name
       })
-      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...data }})
+      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...{ url: data.url, imageUrl: data.imageUrl } }})
     }catch(err){
       dispatch({ type: 'BANDCAMP_NOT_FOUND', payload: { idx } })
       setError(true)

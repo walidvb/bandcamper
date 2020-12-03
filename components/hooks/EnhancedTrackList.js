@@ -37,7 +37,7 @@ function EnhancedTrackList({ tracks }) {
 
   const stringToCopy = tracks.map(formatTrack).join('\n')
   const modalContent = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full max-w-64">
       <div className="flex-grow mb-4">
         <textarea 
           className={'px-2 w-full h-full'}
@@ -46,7 +46,10 @@ function EnhancedTrackList({ tracks }) {
           onClick={({ target }) => target.select()}
         />
       </div>
-      <div class="flex justify-end">
+      <div className="flex justify-end">
+        <div className={`${BUTTON_CLASSES} mr-6`} onClick={() => setIsOpen(false)}>
+          Close
+        </div>
         <CopyButton text={stringToCopy} />
       </div>
     </div>
@@ -57,11 +60,6 @@ function EnhancedTrackList({ tracks }) {
       <ReactModal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
-        style={
-          { overlay: {}, content: {} }
-  /* Object indicating styles to be used for the modal.
-     It has two keys, `overlay` and `content`.
-     See the `Styles` section for more details. */}
 
         contentLabel={
           "Enhanced Track List"
@@ -74,14 +72,8 @@ function EnhancedTrackList({ tracks }) {
      See the `Styles` section for more details. */}
 
         overlaayClassName={
-          "ReactModal__Overlay"
+          "ReactModal__Overlay "
   /* String className to be applied to the overlay.
-     See the `Styles` section for more details. */}
-
-
-        clasasName={
-          "ReactModal__Content"
-  /* String className to be applied to the modal content.
      See the `Styles` section for more details. */}
         >
           {modalContent()}
