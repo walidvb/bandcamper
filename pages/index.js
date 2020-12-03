@@ -29,7 +29,7 @@ const initalTracks = [
 export default () => {
   const { tracks, dispatch } = useTracks(initalTracks)
   return <div className="mx-auto container">
-    <ol className="py-8">
+    <ol className="py-8 ">
       {tracks.map((t, i) => <TrackRow idx={i} key={t.name} dispatch={dispatch} {...t} />)}
     </ol>
   </div>

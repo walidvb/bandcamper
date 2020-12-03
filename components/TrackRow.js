@@ -23,10 +23,11 @@ const TrackRow = ({ artist, name, url, dispatch, idx }) => {
   }
 
   return (
-    <li className="my-2 flex">
-      <input className="px-2 rounded-sm mx-4 bg-blue-200 text-blue-800" type="text" value={artist} />
-      <input className="px-2 rounded-sm mx-4 bg-blue-200 text-blue-800" type="text" value={name} />
-      <input className="px-2 rounded-sm mx-4 bg-blue-200 text-blue-800" type="text" value={url} />
+    <li className="my-2 flex text-blue-800">
+      <div>{idx+1}</div>
+      <input className="px-2 rounded-sm mx-4 bg-blue-200" type="text" value={artist} />
+      <input className="px-2 rounded-sm mx-4 bg-blue-200" type="text" value={name} />
+      <input className="px-2 rounded-sm mx-4 bg-blue-200" type="text" value={url} />
       <div class={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
         { url ? <Check />
           : (error ? <Error /> : <Download />)
