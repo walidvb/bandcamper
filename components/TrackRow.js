@@ -36,16 +36,16 @@ const TrackRow = ({ artist, name, url, dispatch, idx, fetchRequested }) => {
         <div>{idx+1}</div>
       </td>
       <td className={cellClasses}>
-        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={artist} />
+        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={artist} />
       </td>
       <td className={cellClasses}>
-        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={name} />
+        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={name} />
       </td>
       <td className={cellClasses}>
-        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} />
+        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={url} />
       </td>
       <td className={cellClasses}>
-        <div class={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
+        <div className={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
           { url ? <Check />
             : (error ? <Error /> : <Download />)
           }

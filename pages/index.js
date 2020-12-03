@@ -2,6 +2,7 @@ import React from 'react'
 import useTracks from '../components/hooks/useSingleTrack';
 import TrackRow from '../components/TrackRow';
 import TracksTable from '../components/TracksTable';
+import EnhancedTrackList from '../components/hooks/EnhancedTrackList';
 
 
 const initalTracks = [
@@ -27,18 +28,21 @@ const initalTracks = [
   { artist: "Barker (Sam Barker)", name: "Look How Hard I Tried" },
 ]
 
+export const BUTTON_CLASSES = "py-2 rounded-sm cursor-pointer inline-block px-4 text-uppercase bg-blue-700 text-white font-bold"
+
 export default () => {
   const { tracks, dispatch } = useTracks(initalTracks)
 
   return <div className="mx-auto container py-8">
     <TracksTable tracks={tracks} dispatch={dispatch} />
-    <div>
+    <div className="flex">
       <div 
-        className="py-2 cursor-pointer inline-block px-4 text-uppercase bg-blue-700 text-white font-bold" 
+        className={`${BUTTON_CLASSES} mr-6`} 
         onClick={() => dispatch({ type: 'FETCH_REMAINING', payload: {} })}
       >
         Get Bandcamp Links
       </div>
+      <EnhancedTrackList tracks={tracks} />
     </div>
   </div>
 }
