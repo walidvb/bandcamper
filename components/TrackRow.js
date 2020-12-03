@@ -22,18 +22,29 @@ const TrackRow = ({ artist, name, url, dispatch, idx }) => {
     
   }
 
+  const cellClasses = "pb-2 pr-2"
   return (
-    <li className="my-2 flex text-blue-800">
-      <div>{idx+1}</div>
-      <input className="px-2 rounded-sm mx-4 bg-blue-200" type="text" value={artist} />
-      <input className="px-2 rounded-sm mx-4 bg-blue-200" type="text" value={name} />
-      <input className="px-2 rounded-sm mx-4 bg-blue-200" type="text" value={url} />
-      <div class={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
-        { url ? <Check />
-          : (error ? <Error /> : <Download />)
-        }
-      </div>
-    </li>
+    <tr className="">
+      <td className={cellClasses}>
+        <div>{idx+1}</div>
+      </td>
+      <td className={cellClasses}>
+        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={artist} />
+      </td>
+      <td className={cellClasses}>
+        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={name} />
+      </td>
+      <td className={cellClasses}>
+        <input className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} />
+      </td>
+      <td className={cellClasses}>
+        <div class={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
+          { url ? <Check />
+            : (error ? <Error /> : <Download />)
+          }
+        </div>
+      </td>
+    </tr>
   )
 
 }
