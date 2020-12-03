@@ -5,6 +5,7 @@ const TrackRow = ({ track, dispatch, idx }) => {
   const { artist, name, url, imageUrl, fetchRequested } = track
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [fetchedTrack, setFetchedTrack] = useState({})
 
   useEffect(() => {
     if(fetchRequested){
@@ -13,7 +14,7 @@ const TrackRow = ({ track, dispatch, idx }) => {
   }, [fetchRequested])
 
   const query = async ()  => {
-    if(loading) return
+    if(loading || (!artist || !track) ) return
     setLoading(true)
     setError(false)
     try{
@@ -21,7 +22,8 @@ const TrackRow = ({ track, dispatch, idx }) => {
         artist,
         name
       })
-      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...{ url: data.url, imageUrl: data.imageUrl } }})
+      setFetchedTrack(data)
+      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...{ ...track, url: data.url, imageUrl: data.imageUrl } }})
     }catch(err){
       dispatch({ type: 'BANDCAMP_NOT_FOUND', payload: { idx } })
       setError(true)
@@ -40,28 +42,37 @@ const TrackRow = ({ track, dispatch, idx }) => {
 
   const cellClasses = "pb-2 pr-2"
   return (
-    <tr className="">
+    <tr className="text-left">
       <td className={cellClasses}>
         <div>{idx+1}</div>
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="artist" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={artist} />
+        <input onChange={onChange} name="artist" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={artist} />
+        {/* {fetchedTrack.artist && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.artist} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="name" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={name} />
+        <input onChange={onChange} name="name" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={name} />
+        {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" defaultValue={url} />
+        <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} />
       </td>
       <td className="py-0">
-        {imageUrl && <a href={url} target="_blank">
-          <img src={imageUrl} className="h-6 w-auto"/>
-        </a> }
+
       </td>
       <td className={cellClasses}>
         <div className={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
-          { url ? <Check />
-            : (error ? <Error /> : <Download />)
+          {url
+            ? (
+              <a href={url} target="_blank">
+                <img src={imageUrl} className="h-6 w-auto transform hover:scale-150" />
+              </a>
+            )
+            : ((!artist || !track) 
+              ? null 
+              : (error ? <Error /> : <Download />
+              )
+            )
           }
         </div>
       </td>

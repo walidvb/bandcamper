@@ -12,7 +12,7 @@ const TrackNew = ({ dispatch }) => {
   const onAdd = () => {
     dispatch({
       type: 'ADD_TRACK',
-      payload: { track, fetchRequested: true }
+      payload: { track: { ...track, fetchRequested: true } }
     })
     setTrack({})
   }
@@ -43,10 +43,10 @@ export default ({ tracks, dispatch}) => {
     <table className="w-full text-blue-800 text-center">
       <thead>
         <tr>
-          <td className="pb-4 font-bold"></td>
-          <td className="pb-4 font-bold">Artist</td>
-          <td className="pb-4 font-bold">Track</td>
-          <td className="pb-4 font-bold">Link</td>
+          <td className="pb-2 font-bold"></td>
+          <td className="pb-2 font-bold">Artist</td>
+          <td className="pb-2 font-bold">Track</td>
+          <td className="pb-2 font-bold">Link</td>
         </tr>
       </thead>
       <tbody>
