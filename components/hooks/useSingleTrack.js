@@ -21,7 +21,7 @@ const reducer = (state, { type, payload }) => {
     case 'ADD_TRACK':
       return [...state, {...payload.track, idx: state.length }]
     case 'UPDATE_TRACK':
-      return state.map((t, i) => i === idx ? track : t)
+      return state.map((t, i) => i === idx ? { ...t, ...track } : t)
     default:
       return state
   }

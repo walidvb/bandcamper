@@ -31,7 +31,7 @@ const CopyButton = ({ text }) => {
 
 }
 
-const formatTrack = ({ artist, name, label, url, ...t }, idx) => `${idx+1}.   ${name} – ${artist} ${url ? `[${url}]` : ''}`
+const formatTrack = ({ artist, name, version, label, url, ...t }, idx) => `${idx + 1}.   ${artist} – ${name} ${version ? `(${version})` : ''} ${label ? `[${label}]` : ''}  ${url ? ` \n      🛒 ${url}` : ''}`
 function EnhancedTrackList({ tracks }) {
   const [isOpen, setIsOpen] = useState(false)
 

@@ -29,6 +29,12 @@ const TrackNew = ({ dispatch }) => {
         <input onChange={onChange} name="name" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={track.name || ''} />
       </td>
       <td className={cellClasses}>
+        <input onChange={onChange} name="version" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={track.version || ''} />
+      </td>
+      <td className={cellClasses}>
+        <input onChange={onChange} name="label" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={track.label || ''} />
+      </td>
+      <td className={cellClasses}>
         <input type="submit" onClick={onAdd} className="w-full px-2 py-1 rounded-sm bg-blue-100 text-center border border-blue-500 border-dashed cursor-pointer" value="+ Add Track" />
       </td>
       <td className={cellClasses}>

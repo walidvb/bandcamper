@@ -37,8 +37,7 @@ const TrackRow = ({ track, dispatch, idx }) => {
   const onChange = ({ target: { value, name } }) => dispatch({ 
     type: 'UPDATE_TRACK', 
     payload: { 
-      idx, 
-      ...track, 
+      idx,
       [name]: value 
     }
   })
@@ -66,13 +65,13 @@ const TrackRow = ({ track, dispatch, idx }) => {
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <BandcampUrlInput onChange={onChange} options={candidates} selected={url} />
+        <BandcampUrlInput idx={idx} dispatch={dispatch} options={candidates} selected={url} />
         {/* <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} /> */}
       </td>
       <td className="py-0">
 
       </td>
-      <td className={cellClasses}>
+      <td className={""}>
         <div className={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
           {url
             ? (

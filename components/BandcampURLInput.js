@@ -54,19 +54,27 @@ const Option = ({ data, ...props }) => {
       <div className="flex">
         <img src={data.img} className="h-12 mr-2"/>
         <div>
-          {data.artist} { data.name}
+          {data.band_name} - { data.name}
           <br />
-          {data.url.replace(/https?:\/\//, '')}
+          <em>{data.url.replace(/https?:\/\//, '')}</em>
         </div>
       </div>
     </components.Option>
   </div>
 }
 
-const BandcampUrlInput = ({ options, selected, onChange }) => {
+const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
 
-  const onSelect = (option) => onChange({ target: { value: option.value, name: 'url' }})
+  const onSelect = (option) => dispatch({
+    type: 'UPDATE_TRACK',
+    payload: {
+      idx,
+      url: option.value,
+      imageUrl: option.img,
+    }
+  })
   console.log(selected, 'url')
+  
   return <Creatable
     value={{ value: selected, label: selected }}
     defaultValue={selected}

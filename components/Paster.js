@@ -33,8 +33,11 @@ function Paster({ dispatch, onNext }) {
   const convert = () => {
     const entries = raw.split('\n')
     const tracks = entries.map((entry) => {
-      const track = regexp.exec(entry).groups
-      return track
+      const matches = regexp.exec(entry)
+      if(matches){
+        return matches.groups
+      }
+      return {}
     })
     console.table(tracks)
     dispatch({ type: 'PARSED_TRACKLIST', payload: tracks })
@@ -42,8 +45,15 @@ function Paster({ dispatch, onNext }) {
   }
   return (
     <div className="mx-auto container h-screen py-8 flex flex-col">
-      <textarea onChange={onChange} className="w-full flex-grow" value={raw} />
-      <input type="submit" className={BUTTON_CLASSES} value="convert" onClick={convert}/>
+      <div>
+        Enter your tracklist in this format:
+        <br />
+        Artist - Track (Version)[Label]
+      </div>
+      <textarea onChange={onChange} autoFocus className="w-full text-gray-700 flex-grow block border border-gray-400 p-1 my-2" value={raw} />
+      <div className="flex justify-end">
+        <input type="submit" className={BUTTON_CLASSES} value="convert" onClick={convert}/>
+      </div>
     </div>
   );
 }
