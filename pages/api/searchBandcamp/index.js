@@ -1,9 +1,16 @@
-var bandcamp = require('bandcamp-scraper');
-import searchApi from './fromAutocomplete';
+import bandcampScraper from './scraper'
+import bandcampApi from './fromAutocomplete';
+import googleScraper from './google';
 var stringSimilarity = require('string-similarity');
 
-const searchBandcamp = async ({ artist, name }) => {
-  const results = await searchApi({ artist, name })
+const scrapers = {
+  bandcampApi,
+  bandcampScraper,
+  googleScraper
+}
+
+const searchBandcamp = async ({ artist, name }, scraper = 'googleScraper') => {
+  const results = await scrapers[scraper]({ artist, name })
   return results
 }
 
