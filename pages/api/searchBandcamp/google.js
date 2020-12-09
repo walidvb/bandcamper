@@ -8,7 +8,10 @@ const find = async ({ artist, name }) => {
       console.log("Opening the browser......");
       browser = await puppeteer.launch({
         headless: true,
-        args: ["--disable-setuid-sandbox"],
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox'
+        ],
         'ignoreHTTPSErrors': true
       });
     } catch (err) {
