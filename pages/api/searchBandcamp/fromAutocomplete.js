@@ -6,6 +6,7 @@ const searchApi = async ({ artist, name }) => {
   const queryURL = `${BRANDCAMP_SEARCH_URL}${encodeURIComponent(`${artist} ${name}`)}`
   const results = await Axios.get(queryURL)
   const sorted = results.data.results
+    .filter(({ type }) => type !== 'f')
     .sort((a, b) => {
       if((a.type !== 'b' && b.type !== 'b') || (b.weight === 0 || a.weight === 0)){
         return b.weight - a.weight
