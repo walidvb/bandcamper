@@ -1,7 +1,6 @@
 import bandcampScraper from './scraper'
 import bandcampApi from './fromAutocomplete';
 import googleScraper from './google';
-var stringSimilarity = require('string-similarity');
 
 const scrapers = {
   bandcampApi,
@@ -9,7 +8,7 @@ const scrapers = {
   googleScraper
 }
 
-const searchBandcamp = async ({ artist, name }, scraper = 'googleScraper') => {
+const searchBandcamp = async ({ artist, name }, scraper = 'bandcampApi') => {
   const results = await scrapers[scraper]({ artist, name })
   return results
 }

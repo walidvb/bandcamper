@@ -1,9 +1,10 @@
 import Axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import BandcampUrlInput from './BandcampURLInput';
 
-const TrackRow = ({ track, dispatch, idx }) => {
-  const { artist, name, url, version, label, imageUrl, fetchRequested } = track
+const TrackRow = (props) => {
+  const { track, dispatch, idx, metadata } = props
+  const { artist, name, version, label, imageUrl, fetchRequested } = track
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [candidates, setCandidates] = useState([])
@@ -25,7 +26,7 @@ const TrackRow = ({ track, dispatch, idx }) => {
       })
       setCandidates(newCandidates)
       const bestMatch = newCandidates[0]
-      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...{ ...track, url: bestMatch.url, imageUrl: bestMatch.img } }})
+      dispatch({ type: 'UPDATE_TRACK', payload: { idx, ...{ ...track, metadata: bestMatch, imageUrl: bestMatch.img } }})
     }catch(err){
       console.log(err)
       dispatch({ type: 'BANDCAMP_NOT_FOUND', payload: { idx } })
@@ -49,23 +50,23 @@ const TrackRow = ({ track, dispatch, idx }) => {
         <div>{idx+1}</div>
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="artist" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={artist} />
+        <input onChange={onChange} name="artist" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={artist} />
         {/* {fetchedTrack.artist && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.artist} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="name" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={name} />
+        <input onChange={onChange} name="name" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={name} />
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="version" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={version} />
+        <input onChange={onChange} name="version" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={version} />
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="label" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={label} />
+        <input onChange={onChange} name="label" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={label} />
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <BandcampUrlInput idx={idx} dispatch={dispatch} options={candidates} selected={url} />
+        <BandcampUrlInput idx={idx} dispatch={dispatch} options={candidates} selected={metadata} />
         {/* <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} /> */}
       </td>
       <td className="py-0">
@@ -73,9 +74,9 @@ const TrackRow = ({ track, dispatch, idx }) => {
       </td>
       <td className={""}>
         <div className={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
-          {url
+          {metadata?.url
             ? (
-              <a href={url} target="_blank">
+              <a href={metadata.url} target="_blank">
                 <img src={imageUrl} className="h-6 w-auto transform hover:scale-150" />
               </a>
             )

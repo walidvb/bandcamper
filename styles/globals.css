@@ -15,3 +15,27 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+
+.css-1qcld3k-ValueContainer, .miniplayer{
+  height: 40px;
+  padding-left: 0!important;
+}
+.css-zk88xw-singleValue{
+  width: 100%;
+  position: relative;
+  height: 100%;
+}
+.miniplayer{
+  border: 0;
+  width: 376px;
+  height: 42px;
+
+  width: 361px;
+  height: 120px;
+  position: absolute;
+  top: -65px;
+  z-index: 1000;
+
+}
