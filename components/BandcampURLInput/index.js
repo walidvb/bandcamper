@@ -78,10 +78,7 @@ const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
   const SingleValue = (props) => {
 
     return <components.SingleValue {...props}>
-      {!selected?.url ? null : <div className=" ">
-        {/* <img className="mini-thumbnail" src={selected.img} /> */}
-        <BandcampPlayer metadata={selected} />
-      </div>}
+      {!selected?.url ? null : <BandcampPlayer metadata={selected} /> }
     </components.SingleValue>
   }
 

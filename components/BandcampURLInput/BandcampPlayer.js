@@ -8,7 +8,14 @@ function BandcampPlayer(props) {
   }
 
   if (metadata?.type === 'b' /* type is band */){
-    return <div>See {metadata.name}</div>
+    return <div className="flex items-center">
+      <img className="mini-thumbnail mr-2" src={metadata.img} />
+      View&nbsp; 
+      <a href={metadata.url} target="_blank" className="underline hover:no-underline">
+        {metadata.name}
+      </a>
+      &nbsp;on bandcamp
+    </div>
   }
   const { id, album_id } = metadata
   return (
