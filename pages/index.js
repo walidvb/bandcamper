@@ -34,6 +34,7 @@ export default () => {
   return <div className="mx-auto container py-8">
     <h1 className="uppercase text-4xl text-center font-bold ">
       WELCOME TO BANDCAMPER
+      <sup className="text-xl text-blue-600">beta</sup>
     </h1>
     <TracksTable tracks={tracks} dispatch={dispatch}/>
     <div className="flex justify-end fixed bottom-0 container mx-auto py-4 bg-black">

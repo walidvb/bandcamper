@@ -20,13 +20,18 @@ const customStyles = {
   valueContainer: (provided) => ({
     ...provided,
     color: blue,
-    padding: "0px 8px",
+    padding: "0px 0px",
+    height: 'var(--height)',
   }),
   indicatorsContainer: (provided) => ({
     ...provided,
     '[class*="indicatorContainer"]': {
       padding: 5,
     }
+  }),
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    display: 'none',
   }),
   control: (provided) => ({
     ...provided,
@@ -41,7 +46,13 @@ const customStyles = {
     const opacity = state.isDisabled ? 0.5 : 1;
     const transition = 'opacity 300ms';
 
-    return { ...provided, opacity, transition };
+    return { 
+      ...provided, 
+      opacity, 
+      transition,
+      marginLeft: '0px',
+      width: '100%',
+    };
   }
 }
 
@@ -78,7 +89,11 @@ const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
   const SingleValue = (props) => {
 
     return <components.SingleValue {...props}>
-      {!selected?.url ? null : <BandcampPlayer metadata={selected} /> }
+      {!selected?.url ? null :
+        <div className="rounded-sm overflow-hidden">
+          <BandcampPlayer metadata={selected} /> 
+        </div>
+      }
     </components.SingleValue>
   }
 

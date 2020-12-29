@@ -25,17 +25,15 @@ a {
 }
 .css-1qcld3k-ValueContainer, .miniplayer{
   height: 40px;
-  padding-left: 0!important;
 }
 .miniplayer{
   border: 0;
   width: 376px;
-  height: 42px;
+  height: var(--img-size);
 }
 
 .css-1qcld3k-ValueContainer, .miniplayer{
-  height: 40px;
-  padding-left: 0!important;
+  height: var(--img-size);
 }
 .css-zk88xw-singleValue{
   width: 100%;
@@ -44,8 +42,8 @@ a {
 }
 
 .player-container{
-  --img-size: 42px;
-  --height: 43px;
+  --img-size: 40px;
+  --height: 40px;
   display: flex;
 }
 .album-placeholder{
@@ -59,10 +57,9 @@ a {
 }
 .miniplayer{
   border: 0;
-  width: 376px;
-  height: var(--height);
-  width: 100%;
+  height: calc(var(--height) + 2px);
+  width: calc(100% + 2px);
   position: relative;
-  bottom: -1px;
-
+  left: -1px;
+  
 }
