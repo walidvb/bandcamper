@@ -1,26 +1,8 @@
 import React, { useRef } from 'react';
 
-const useWhyDidIRender = (props) => {
-  const prevProps = useRef()
-  if (prevProps.current) {
-    const allKeys = [
-      ...new Set([...Object.keys(props), ...Object.keys(prevProps.current)]),
-    ]
-    const diffKeys = allKeys.filter(k => props[k] !== prevProps.current[k])
-    console.log(
-      'DIFF',
-      diffKeys.map(k => ({ k, prev: prevProps.current[k], cur: props[k] }))
-    )
-  } else {
-    console.log('FIRST MOUNT')
-  }
-  prevProps.current = props
-}
-
 
 function BandcampPlayer(props) {
   const { metadata } = props
-  useWhyDidIRender(props)
   if(!metadata?.url){
     return null
   }
