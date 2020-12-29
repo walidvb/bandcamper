@@ -58,7 +58,7 @@ export default ({ tracks, dispatch}) => {
         </tr>
       </thead>
       <tbody>
-        {tracks.map((t, i) => <TrackRow idx={i} key={i} dispatch={dispatch} track={t} />)}
+        {tracks.map((t, i) => <TrackRow idx={i} key={t.id} dispatch={dispatch} track={t} metadata={t.metadata} />)}
         <TrackNew dispatch={dispatch} />
       </tbody>
     </table>

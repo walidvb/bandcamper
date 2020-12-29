@@ -1,11 +1,12 @@
+import React from 'react';
 import { components } from 'react-select';
 import Creatable from 'react-select/creatable';
+import BandcampPlayer from './BandcampPlayer';
 
 const bgBlue = 'rgba(235, 248, 255, 1)'
 const blue = 'rgba(235, 248, 255, var(--bg-opacity))'
 const customStyles = {
   option: (provided, state) => {
-    console.log(state, 'state')
     return ({
       ...provided,
       color: blue,
@@ -63,26 +64,32 @@ const Option = ({ data, ...props }) => {
   </div>
 }
 
-const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
 
+const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
+  
   const onSelect = (option) => dispatch({
     type: 'UPDATE_TRACK',
     payload: {
       idx,
-      url: option.value,
+      metadata: option.value,
       imageUrl: option.img,
     }
   })
-  console.log(selected, 'url')
-  
+  console.log("selected", selected)
+  const SingleValue = (props) => {
+    return <components.SingleValue {...props}>
+      <BandcampPlayer metadata={selected} />
+    </components.SingleValue>
+  }
+
   return <Creatable
     value={{ value: selected, label: selected }}
     defaultValue={selected}
     styles={customStyles}
-    components={{ Option }}
+    components={{ Option, SingleValue }}
     onChange={onSelect}
-    options={options.map(o => ({...o, label: o.url, value: o.url}))}
+    options={options.map(o => ({...o, label: o.url, value: o}))}
   />
 }
 
-export default BandcampUrlInput
+export default React.memo(BandcampUrlInput)

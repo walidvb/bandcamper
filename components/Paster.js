@@ -32,14 +32,17 @@ function Paster({ dispatch, onNext }) {
 
   const convert = () => {
     const entries = raw.split('\n')
-    const tracks = entries.map((entry) => {
+    const tracks = entries.map((entry, i) => {
       const matches = regexp.exec(entry)
       if(matches){
-        return matches.groups
+        return {
+          ...matches.groups,
+          id: `${i}`,
+          metadata: {},
+        }
       }
       return {}
     })
-    console.table(tracks)
     dispatch({ type: 'PARSED_TRACKLIST', payload: tracks })
     onNext()
   }
