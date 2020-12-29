@@ -5,6 +5,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     min-height: 100vh;
+  background-color: #111;
+  color: white;
 }
 
 a {
@@ -18,6 +20,19 @@ a {
 
 
 
+.css-zk88xw-singleValue{
+  width: 100%;
+}
+.css-1qcld3k-ValueContainer, .miniplayer{
+  height: 40px;
+  padding-left: 0!important;
+}
+.miniplayer{
+  border: 0;
+  width: 376px;
+  height: 42px;
+}
+
 .css-1qcld3k-ValueContainer, .miniplayer{
   height: 40px;
   padding-left: 0!important;
@@ -27,15 +42,27 @@ a {
   position: relative;
   height: 100%;
 }
+
+.player-container{
+  --img-size: 42px;
+  --height: 43px;
+  display: flex;
+}
+.album-placeholder{
+  display: inline-block;
+  width: var(--img-size);
+  margin-right: 5px;
+}
+.mini-thumbnail{
+  width: var(--img-size);
+  height: var(--img-size);
+}
 .miniplayer{
   border: 0;
   width: 376px;
-  height: 42px;
-
-  width: 361px;
-  height: 120px;
-  position: absolute;
-  top: -65px;
-  z-index: 1000;
+  height: var(--height);
+  width: 100%;
+  position: relative;
+  bottom: -1px;
 
 }

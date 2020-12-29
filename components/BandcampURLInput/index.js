@@ -10,7 +10,7 @@ const customStyles = {
     return ({
       ...provided,
       color: blue,
-      backgroundColor: !state.isSelected ? 'none' : bgBlue,
+      backgroundColor: !state.isSelected ? 'none' : 'white',
     })
   },
   container: (provided) => ({
@@ -31,7 +31,7 @@ const customStyles = {
   control: (provided) => ({
     ...provided,
     border: 'none',
-    backgroundColor: bgBlue,
+    backgroundColor: 'white',
     padding: 0,
     width: "100%",
     minWidth: 400,
@@ -75,21 +75,27 @@ const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
       imageUrl: option.img,
     }
   })
-  console.log("selected", selected)
   const SingleValue = (props) => {
+
     return <components.SingleValue {...props}>
-      <BandcampPlayer metadata={selected} />
+      {!selected?.url ? null : <div className=" ">
+        {/* <img className="mini-thumbnail" src={selected.img} /> */}
+        <BandcampPlayer metadata={selected} />
+      </div>}
     </components.SingleValue>
   }
 
-  return <Creatable
-    value={{ value: selected, label: selected }}
-    defaultValue={selected}
-    styles={customStyles}
-    components={{ Option, SingleValue }}
-    onChange={onSelect}
-    options={options.map(o => ({...o, label: o.url, value: o}))}
-  />
+  return <div className="player-container">
+    { !selected?.url && <div className="album-placeholder" />}
+    <Creatable
+      value={{ value: selected, label: selected }}
+      defaultValue={selected}
+      styles={customStyles}
+      components={{ Option, SingleValue }}
+      onChange={onSelect}
+      options={options.map(o => ({...o, label: o.url, value: o}))}
+    />
+  </div>
 }
 
 export default React.memo(BandcampUrlInput)

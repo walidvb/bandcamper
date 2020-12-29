@@ -47,40 +47,34 @@ const TrackRow = (props) => {
   return (
     <tr className="text-left">
       <td className={cellClasses}>
-        <div>{idx+1}</div>
+        <div className="text-white">{idx+1}</div>
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="artist" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={artist} />
+        <input onChange={onChange} name="artist" className="w-full px-2 py-2 rounded-sm bg-white" type="text" value={artist} />
         {/* {fetchedTrack.artist && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.artist} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="name" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={name} />
+        <input onChange={onChange} name="name" className="w-full px-2 py-2 rounded-sm bg-white" type="text" value={name} />
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="version" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={version} />
+        <input onChange={onChange} name="version" className="w-full px-2 py-2 rounded-sm bg-white" type="text" value={version} />
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
-        <input onChange={onChange} name="label" className="w-full px-2 py-2 rounded-sm bg-blue-100" type="text" value={label} />
+        <input onChange={onChange} name="label" className="w-full px-2 py-2 rounded-sm bg-white" type="text" value={label} />
         {/* {fetchedTrack.name && <div className="text-xs pl-2 text-blue-500"> {fetchedTrack.name} ?</div>} */}
       </td>
       <td className={cellClasses}>
         <BandcampUrlInput idx={idx} dispatch={dispatch} options={candidates} selected={metadata} />
-        {/* <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-blue-100" type="text" value={url} /> */}
+        {/* <input onChange={onChange} name="url" className="w-full px-2 py-1 rounded-sm bg-white" type="text" value={url} /> */}
       </td>
       <td className="py-0">
 
       </td>
       <td className={""}>
         <div className={`cursor-pointer ${loading && "animate-bounce cursor-none"} text-blue-300`} onClick={query}>
-          {metadata?.url
-            ? (
-              <a href={metadata.url} target="_blank">
-                <img src={imageUrl} className="h-6 w-auto transform hover:scale-150" />
-              </a>
-            )
-            : ((!artist || !track) 
+          {((!artist || !track) 
               ? null 
               : (error ? <Error /> : <Download />
               )

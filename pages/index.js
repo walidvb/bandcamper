@@ -36,7 +36,7 @@ export default () => {
       WELCOME TO BANDCAMPER
     </h1>
     <TracksTable tracks={tracks} dispatch={dispatch}/>
-    <div className="flex justify-end">
+    <div className="flex justify-end fixed bottom-0 container mx-auto py-4 bg-black">
       <div 
         className={`${BUTTON_CLASSES} mr-6`} 
         onClick={() => dispatch({ type: 'FETCH_REMAINING', payload: {} })}

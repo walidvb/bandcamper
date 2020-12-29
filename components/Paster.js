@@ -53,7 +53,7 @@ function Paster({ dispatch, onNext }) {
         <br />
         Artist - Track (Version)[Label]
       </div>
-      <textarea onChange={onChange} autoFocus className="w-full text-gray-700 flex-grow block border border-gray-400 p-1 my-2" value={raw} />
+      <textarea onChange={onChange} autoFocus className="w-full text-gray-200 flex-grow block border border-gray-400 p-1 my-2" value={raw} />
       <div className="flex justify-end">
         <input type="submit" className={BUTTON_CLASSES} value="convert" onClick={convert}/>
       </div>

@@ -31,7 +31,7 @@ const CopyButton = ({ text }) => {
 
 }
 
-const formatTrack = ({ artist, name, version, label, url, ...t }, idx) => `${idx + 1}.   ${artist} – ${name} ${version ? `(${version})` : ''} ${label ? `[${label}]` : ''}  ${url ? ` \n      🛒 ${url}` : ''}`
+const formatTrack = ({ artist, name, version, label, metadata, url, ...t }, idx) => `${idx + 1}.   ${artist} – ${name} ${version ? `(${version})` : ''} ${label ? `[${label}]` : ''}  ${metadata?.url ? ` \n      🛒 ${metadata.url}` : ''}`
 function EnhancedTrackList({ tracks }) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -40,7 +40,7 @@ function EnhancedTrackList({ tracks }) {
     <div className="flex flex-col h-full max-w-64">
       <div className="flex-grow mb-4">
         <textarea 
-          className={'px-2 w-full h-full'}
+          className={'px-2 w-full h-full text-black'}
           value={stringToCopy}
           editable={false}
           onClick={({ target }) => target.select()}
@@ -60,14 +60,13 @@ function EnhancedTrackList({ tracks }) {
       <ReactModal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
-
         contentLabel={
           "Enhanced Track List"
   /* String indicating how the content container should be announced
      to screenreaders */}
 
-        portaalClassName={
-          "ReactModalPortal"
+        portalClassName={
+          "ReactModalPortal container"
   /* String className to be applied to the portal.
      See the `Styles` section for more details. */}
 

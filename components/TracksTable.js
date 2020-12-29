@@ -46,7 +46,7 @@ const TrackNew = ({ dispatch }) => {
 
 export default ({ tracks, dispatch}) => {
   return <div className="mx-auto container py-8">
-    <table className="w-full text-blue-800 text-center">
+    <table className="w-full text-center">
       <thead>
         <tr>
           <td className="pb-2 font-bold"></td>
@@ -57,7 +57,7 @@ export default ({ tracks, dispatch}) => {
           <td className="pb-2 font-bold">Link</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="text-blue-800">
         {tracks.map((t, i) => <TrackRow idx={i} key={t.id} dispatch={dispatch} track={t} metadata={t.metadata} />)}
         <TrackNew dispatch={dispatch} />
       </tbody>
