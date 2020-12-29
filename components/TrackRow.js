@@ -49,7 +49,7 @@ const TrackRow = (props) => {
       [name]: value 
     }
   })
-
+  console.log(artist, metadata)
   const cellClasses = "pb-2 pr-2"
   return (
     <tr className="text-left">

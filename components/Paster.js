@@ -24,7 +24,7 @@ const initVal = "Patten - Rorsach [Patten]\n" +
 "Peder Mannerfelt - A Queen[Voam]\n" +
 "IVVVO Feat.Maxwell Sterling - Last Days[Halcyon Veil]"
 
-const regexp = /^(?<artist>[^-]*) - ?(?<name>[^\(\[]*)\s*?(?:\((?<version>[^\)]*))?\s*(?:\[(?<label>[^\]]*))?/
+const regexp = /^(?<artist>[^-]+)\s*-\s*(?<name>[^\(\[]+)\s*(?:\((?<version>[^\)]*))?\s*(?:\[(?<label>[^\]]*))?/
 
 function Paster({ dispatch, onNext }) {
   const [raw, setRaw] = useState(initVal)
@@ -33,7 +33,7 @@ function Paster({ dispatch, onNext }) {
   const convert = () => {
     const entries = raw.split('\n')
     const tracks = entries.map((entry, i) => {
-      const matches = regexp.exec(entry)
+      const matches = regexp.exec(entry.replace(/[\u{0080}-\u{FFFF}]/gu, ""))
       if(matches){
         return {
           ...matches.groups,
@@ -41,7 +41,12 @@ function Paster({ dispatch, onNext }) {
           metadata: {},
         }
       }
-      return {}
+      return {
+        artist: entry,
+        metadata: {
+
+        }
+      }
     })
     dispatch({ type: 'PARSED_TRACKLIST', payload: tracks })
     onNext()
