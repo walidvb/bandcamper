@@ -9,7 +9,6 @@ const searchBandcamp = async ({ artist, name }) => {
   };
 
   const results = await searchAsPromise({ artist, name })
-  console.log(results, artist, name)
   const match = results.find(isMatch)
   if (match) {
     return ({

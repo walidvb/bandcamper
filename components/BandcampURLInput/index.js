@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { components } from 'react-select';
 import Creatable from 'react-select/creatable';
 import BandcampPlayer from './BandcampPlayer';
+import Axios from 'axios';
 
 const bgBlue = 'rgba(235, 248, 255, 1)'
 const blue = 'rgba(235, 248, 255, var(--bg-opacity))'
@@ -76,8 +77,16 @@ const Option = ({ data, ...props }) => {
 }
 
 
+const loaders = [
+  "Let's get you a player...",
+  "Might be better with music",
+  "Getting you sound",
+  "Patience and sound will come",
+  "Everything is better embedded",
+]
+
 const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
-  
+  const [loading, setLoading] = useState(false)
   const onSelect = (option) => dispatch({
     type: 'UPDATE_TRACK',
     payload: {
@@ -89,7 +98,15 @@ const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
   const SingleValue = (props) => {
 
     return <components.SingleValue {...props}>
-      {!selected?.url ? null :
+      {!selected?.url ? <div className="opacity-50 pl-2">
+        {loading ? <>
+          <span className="bc-loading mr-4" />
+          {loaders[Math.floor(Math.random() * loaders.length)]}
+          <span className="bc-loading" />
+        </> : <>
+          Enter bandcamp URL or use the auto-fetch →
+        </> }
+      </div> :
         <div className="rounded-sm overflow-hidden">
           <BandcampPlayer metadata={selected} /> 
         </div>
@@ -97,6 +114,21 @@ const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
     </components.SingleValue>
   }
 
+  const onCreateOption = async (customUrl) => {
+    setLoading(true)
+    try{
+      const { data: value } = await Axios.get('/api/getAlbumInfo?url='+ encodeURIComponent(customUrl))
+      onSelect({
+        value,
+      })
+    }
+    catch(err){
+
+    }
+    finally{
+      setLoading(false)
+    }
+  }
   return <div className="player-container">
     { !selected?.url && <div className="album-placeholder" />}
     <Creatable
@@ -105,7 +137,10 @@ const BandcampUrlInput = ({ idx, options, selected, dispatch }) => {
       styles={customStyles}
       components={{ Option, SingleValue }}
       onChange={onSelect}
+      onCreateOption={onCreateOption}
       options={options.map(o => ({...o, label: o.url, value: o}))}
+      placeholder="Enter bandcamp URL"
+      noOptionsMessage={() => ""}
     />
   </div>
 }

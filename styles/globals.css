@@ -18,6 +18,22 @@ a {
   box-sizing: border-box;
 }
 
+.bc-loading{
+  height: 13px;
+  width: 16px;
+  margin: 0 5px;
+  background: grey;
+  display: inline-block;
+  animation: bc .5s infinite linear alternate-reverse;
+}
+@keyframes bc{
+  0%{ 
+    transform: translateX(0px) skewX(0deg); 
+  }
+  50%, 100%{ 
+    transform: translateX(4px) skewX(-30deg); 
+  }
+}
 
 
 .css-zk88xw-singleValue{
