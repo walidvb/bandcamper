@@ -2,8 +2,8 @@ import Axios from "axios"
 
 const BRANDCAMP_SEARCH_URL = "https://bandcamp.com/api/nusearch/2/autocomplete?q="
 
-const searchApi = async ({ artist, name }) => {
-  const queryURL = `${BRANDCAMP_SEARCH_URL}${encodeURIComponent(`${artist} ${name}`)}`
+const searchApi = async ({ artist, name, label }) => {
+  const queryURL = `${BRANDCAMP_SEARCH_URL}${encodeURIComponent(`${name} ${artist} ${label}`)}`
   const results = await Axios.get(queryURL)
   const sorted = results.data.results
     .filter(({ type }) => type !== 'f')

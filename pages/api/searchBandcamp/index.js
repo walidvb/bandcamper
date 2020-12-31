@@ -8,8 +8,8 @@ const scrapers = {
   googleScraper
 }
 
-const searchBandcamp = async ({ artist, name }, scraper = 'bandcampApi') => {
-  const results = await scrapers[scraper]({ artist, name })
+const searchBandcamp = async (query, scraper = 'bandcampApi') => {
+  const results = await scrapers[scraper](query)
   return results
 }
 

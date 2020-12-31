@@ -22,7 +22,8 @@ const TrackRow = (props) => {
     try{
       const { data: newCandidates } = await Axios.post('/api/search', {
         artist,
-        name
+        name,
+        label,
       })
       setCandidates(newCandidates)
       const bestMatch = newCandidates[0]
